@@ -1,0 +1,88 @@
+<html>
+<head>
+  <title>Metabolic Rate Calculator</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+
+<div class="center">
+
+    <h1>Basal Metabolic Rate Calculator</h1>
+    <h3>(using the Harris-Benedict formula)</h3>
+    <form id="submitform">
+        <div class="parameters">
+            <input type="radio" name="sex" value="Male"> <p>&nbsp;</p>
+            <label for="Male" style="color:white;">Male</label> <p>&nbsp;&nbsp;&nbsp;</p>
+            <input type="radio" name="sex" value="Female"> <p>&nbsp;</p>
+            <label for="Female" style="color:white;">Female</label>
+        </div>
+        <div class="parameters">
+            <label for="age" style="color:white;">Age</label > <p>&nbsp;</p>
+
+            <input type="number" id="age" name="age"
+            min="10" max="100">
+            <p>&nbsp;&nbsp;&nbsp;</p>
+            <label for="weight" style="color:white;">Weight</label > <p>&nbsp;</p>
+
+                <input type="number" id="weight" name="weight"
+                min="50" max="1000">
+
+        </div>
+        <div class="parameters">
+                <label for="height_feet" style="color:white;">Height:&nbsp;&nbsp;&nbsp;&nbsp;Feet</label > <p>&nbsp;</p>
+                <input type="number" id="height_feet" name="height_feet"
+                min="0" max="10"> <p>&nbsp;</p>
+                <label for="height_inches" style="color:white;">Inches</label > <p>&nbsp;</p>
+                <input type="number" id="height_inches" name="height_inches"
+                min="0" max="12">
+        </div>
+        <button type="submit" onclick="Func(); return false;" class="buttonstyle"><p>Submit</p></button>
+    </form>
+
+    <div id="results">
+        <h1>Your BMR is: <span id="showtext">0</span></h1>
+    </div>
+
+</div>
+
+</body>
+
+<script >
+
+function Func()
+{
+const form = document.getElementById('submitform');
+const sex = form.elements['sex'];
+const age = form.elements['age'];
+const weight = form.elements['weight'];
+const height_feet = form.elements['height_feet'];
+const height_inches = form.elements['height_inches'];
+
+var sexV = sex.value;
+var ageV = age.value;
+var weightV = parseInt(weight.value);
+var height_feetV = parseInt(height_feet.value);
+var height_inchesV = parseInt(height_inches.value);
+
+var maleBMR = 66 + (6.23 * weightV) + (12.7 * ((height_feetV * 12) + height_inchesV)) - (6.8 * ageV);
+var femaleBMR = 655 + (4.35 * weightV) + (4.7 * ((height_feetV * 12) + height_inchesV)) - (4.7 * ageV);
+
+if (sexV == 'Male')
+{
+    var BMR = maleBMR;
+    document.getElementById('results').style.backgroundColor = "rgba(39, 140, 245, 0.2)";
+}
+else if (sexV == 'Female')
+{
+    var BMR = femaleBMR;
+    document.getElementById('results').style.backgroundColor = "rgba(39, 140, 245, 0.2)";
+}
+
+document.getElementById('showtext').innerHTML = BMR.toFixed(2);
+
+}
+
+</script>
+
+</html>
